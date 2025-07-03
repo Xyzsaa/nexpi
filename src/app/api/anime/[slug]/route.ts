@@ -1,11 +1,16 @@
-import { NextResponse, NextRequest } from "next/server"
-import anime from "@/utils/anime"
+import { NextRequest, NextResponse } from "next/server";
+import anime from "@/utils/anime";
 
-export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
+type Context = {
+  params: { slug: string };
+};
+
+export async function GET(request: NextRequest, context: Context) {
   try {
-    const data = await anime(params.slug)
-    return NextResponse.json({ data: data }, { status: 200 })
+    const { slug } = context.params;
+    const data = await anime(slug);
+    return NextResponse.json({ data }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
