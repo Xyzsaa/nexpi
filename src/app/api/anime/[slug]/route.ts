@@ -1,8 +1,7 @@
 import { NextResponse, NextRequest } from "next/server"
-import anime from "@/utils/anime";
+import anime from "@/utils/anime"
 
-export async function GET(request: NextRequest, props: { params: Promise<{ slug: string }> }) {
-  const params = await props.params;
+export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
   try {
     const data = await anime(params.slug)
     return NextResponse.json({ data: data }, { status: 200 })
